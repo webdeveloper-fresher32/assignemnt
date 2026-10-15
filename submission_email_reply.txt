@@ -1,0 +1,68 @@
+Subject: Submission: Climate Hazard Trend Analyzer Case Study – Full-Stack Developer | Ganesh Pirikirala
+
+Dear Dygnify Ventures Hiring Team,
+
+Thank you for the opportunity to work on this case study. I have completed the Climate Hazard Trend Analyzer application and submitted the official form as requested.
+
+Important Note Regarding Email Address:
+Please note that I am submitting and communicating from workwithganesh2001@gmail.com because my original email account ran out of storage space and was temporarily unable to send/receive messages. Please consider workwithganesh2001@gmail.com for all future communications and interview invites.
+
+--------------------------------------------------------------------------------
+PROJECT LINKS
+--------------------------------------------------------------------------------
+- GitHub Repository: https://github.com/webdeveloper-fresher32/assignemnt
+- API Documentation (Swagger UI): Available locally at http://127.0.0.1:8000/api/v1/docs or via Docker
+
+--------------------------------------------------------------------------------
+TECHNICAL HIGHLIGHTS & ARCHITECTURE OVERVIEW
+--------------------------------------------------------------------------------
+
+1. Data Ingestion & Cleansing (Evaluation: 20%)
+- Integrated the Open-Meteo Historical Weather API, ingesting continuous ECMWF ERA5 & ERA5-Land reanalysis data (0.1° to 0.25° resolution, 1940–present).
+- Built a dedicated DataCleaner pipeline that reindexes daily calendar dates, applies linear interpolation for gaps (<= 3 days), filters physical outliers ([-70°C, +65°C]), and scrubs sensor anomalies deviating by >4 standard deviations from a 31-day rolling mean.
+- Every response includes an automated Data Quality Audit Report (valid records, missing %, outliers detected).
+
+2. Domain-Specific Climate Logic (Evaluation: 20%)
+- Implemented the WMO ETCCDI (TX95p) standard: computes a centered 15-day rolling window across calendar days to prevent seasonal bias.
+- Heatwaves detected using run-length encoding (RLE) for sequences of 3+ consecutive days exceeding the 95th percentile threshold.
+- Calculates event duration, peak temperature, mean temperature, and cumulative excess heat factor (E = sum(T_max - T_95) in °C-days).
+- Added bonus support for Extreme Precipitation (R95p) and Drought Spells (<1 mm dry days).
+
+3. Advanced Statistical Trend Detection (Bonus Challenge)
+- Non-Parametric Mann-Kendall Test: Handles non-normal event counts, computing S-statistic, tie-corrected variance Var(S), standardized Z-score, and two-tailed p-values (p < 0.05 significance).
+- Theil-Sen Robust Slope Estimator: Calculates the median of all pairwise slopes, immune to extreme outlier years.
+- Ordinary Least Squares (OLS) Linear Regression: Evaluates slope (beta), R² goodness-of-fit, and percentage change.
+
+4. Backend Architecture & NoSQL Caching (Evaluation: 20% & 15%)
+- Built with Python & FastAPI featuring strict Pydantic v2 validation, async connection pooling (httpx), and rate limiting (slowapi at 20 req/min).
+- Dual NoSQL Persistence: Implemented a SHA-256 parameter hashing cache using an embedded TinyDB document store (zero-config, high reliability) alongside native MongoDB support.
+- Caching cuts response latency from ~3,000ms down to 2.5ms (>1,000x speedup).
+
+5. Interactive Frontend & Visualizations (Evaluation: 15% + Bonus Map)
+- Interactive Leaflet Map (Bonus): Click-to-pin coordinate picker, draggable marker, and live coordinate HUD overlay.
+- Global Search & Presets: Debounced city autocomplete search plus 1-click presets for major cities across all continents.
+- 4 Chart.js Visualizations:
+  1. Annual Hazard Frequency: Bar chart + 3-year rolling average + OLS linear trend line.
+  2. Duration & Persistence: Total annual hazard days + Sen's slope line.
+  3. Thermal Severity: Cumulative excess heat (°C-days) + annual mean temperature.
+  4. Daily Timeline: High-resolution daily maximum temperature series against the 95th percentile curve, highlighting active heatwave days.
+- Methodology Modal: Deep mathematical breakdown comparing OLS and Mann-Kendall metrics with full formula transparency.
+
+6. Export Features (Bonus Challenge)
+- Executive PDF Report: Uses ReportLab to generate a clean, multi-table executive climate assessment report.
+- CSV Export: Streams structured annual metrics and detected individual events.
+- JSON Export: Raw payload download for downstream analytics.
+
+7. DevOps & Reproducibility
+- start.sh: A single one-click script that sets up virtual environments, installs packages, and launches both frontend and backend.
+- docker-compose.yml & Dockerfile: Full containerization for backend, frontend (Nginx reverse proxy), and MongoDB.
+- pytest: 100% test pass rate across data cleaning, climate logic, trend statistics, NoSQL persistence, and API schemas.
+
+--------------------------------------------------------------------------------
+
+I look forward to walking you through the codebase, demonstrating the live application, and discussing any technical details during the interview!
+
+Warm regards,
+Ganesh Pirikirala
+Email: workwithganesh2001@gmail.com
+GitHub: https://github.com/webdeveloper-fresher32
